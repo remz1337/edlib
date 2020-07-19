@@ -74,10 +74,6 @@ if (NOT WIN32) # If on windows, do not build binaries that do not support window
   target_link_libraries(edlib-aligner edlib)
 endif()
 
-# Create target 'install' for installing libraries.
-#install(TARGETS edlib DESTINATION ${CMAKE_INSTALL_LIBDIR})
-#install(FILES edlib/include/edlib.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-
 # configure and install pkg-config file
 configure_file(
     ${CMAKE_CURRENT_SOURCE_DIR}/edlib.pc.in
@@ -85,7 +81,7 @@ configure_file(
     @ONLY)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/edlib-1.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 
-## Additional config for VCPKG
+### Additional config for VCPKG
 include(CMakePackageConfigHelpers)
 set(EDLIB_CMAKE_DIR "lib/cmake/edlib" CACHE STRING
   "Installation directory for cmake files, relative to ${CMAKE_INSTALL_PREFIX}.")
@@ -111,9 +107,9 @@ install(
     DESTINATION ${EDLIB_CMAKE_DIR})
 install(EXPORT ${targets_export_name} DESTINATION ${EDLIB_CMAKE_DIR}
     NAMESPACE edlib::)
+	
+### //
 
-# Install the header file and export the target
-#install(TARGETS edlib EXPORT ${targets_export_name} DESTINATION lib)
-install(TARGETS edlib EXPORT ${targets_export_name} DESTINATION ${CMAKE_INSTALL_LIBDIR})
-#install(FILES ${PROJECT_SOURCE_DIR}/include/edlib.h DESTINATION include)
-install(FILES ${PROJECT_SOURCE_DIR}/edlib/include/edlib.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+# Create target 'install' for installing libraries.
+install(TARGETS edlib DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(FILES edlib/include/edlib.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
