@@ -115,7 +115,7 @@ if(CXXOPTS_ENABLE_INSTALL)
 	#install(TARGETS edlib DESTINATION ${CMAKE_INSTALL_LIBDIR})
 	#install(FILES edlib/include/edlib.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
     install(TARGETS edlib EXPORT ${targets_export_name} DESTINATION lib)
-    install(FILES ${PROJECT_SOURCE_DIR}/include/edlib.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+    install(FILES ${PROJECT_SOURCE_DIR}/include/edlib.h DESTINATION include)
 
 endif()
 ### //
