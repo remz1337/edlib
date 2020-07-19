@@ -84,7 +84,7 @@ configure_file(
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/edlib-1.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 
 ### Additional config for VCPKG
-if(CXXOPTS_ENABLE_INSTALL)
+if(EDLIB_ENABLE_INSTALL)
 	include(CMakePackageConfigHelpers)
 	set(EDLIB_CMAKE_DIR "lib/cmake/edlib" CACHE STRING
 	  "Installation directory for cmake files, relative to ${CMAKE_INSTALL_PREFIX}.")
