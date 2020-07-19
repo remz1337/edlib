@@ -74,10 +74,9 @@ if (NOT WIN32) # If on windows, do not build binaries that do not support window
   target_link_libraries(edlib-aligner edlib)
 endif()
 
-
 # Create target 'install' for installing libraries.
-install(TARGETS edlib DESTINATION ${CMAKE_INSTALL_LIBDIR})
-install(FILES edlib/include/edlib.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+#install(TARGETS edlib DESTINATION ${CMAKE_INSTALL_LIBDIR})
+#install(FILES edlib/include/edlib.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 # configure and install pkg-config file
 configure_file(
@@ -85,3 +84,34 @@ configure_file(
     ${CMAKE_CURRENT_BINARY_DIR}/edlib-1.pc
     @ONLY)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/edlib-1.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+
+## Additional config for VCPKG
+include(CMakePackageConfigHelpers)
+set(EDLIB_CMAKE_DIR "lib/cmake/edlib" CACHE STRING
+  "Installation directory for cmake files, relative to ${CMAKE_INSTALL_PREFIX}.")
+set(version_config "${PROJECT_BINARY_DIR}/edlib-config-version.cmake")
+set(project_config "${PROJECT_BINARY_DIR}/edlib-config.cmake")
+set(targets_export_name edlib-targets)
+
+# Generate the version, config and target files into the build directory.
+write_basic_package_version_file(
+    ${version_config}
+    VERSION ${VERSION}
+    COMPATIBILITY AnyNewerVersion)
+configure_package_config_file(
+    ${PROJECT_SOURCE_DIR}/edlib-config.cmake.in
+    ${project_config}
+    INSTALL_DESTINATION ${EDLIB_CMAKE_DIR})
+export(TARGETS edlib NAMESPACE edlib::
+    FILE ${PROJECT_BINARY_DIR}/${targets_export_name}.cmake)
+
+# Install version, config and target files.
+install(
+    FILES ${project_config} ${version_config}
+    DESTINATION ${EDLIB_CMAKE_DIR})
+install(EXPORT ${targets_export_name} DESTINATION ${EDLIB_CMAKE_DIR}
+    NAMESPACE edlib::)
+
+# Install the header file and export the target
+install(TARGETS edlib EXPORT ${targets_export_name} DESTINATION lib)
+install(FILES ${PROJECT_SOURCE_DIR}/include/edlib.h DESTINATION include)
