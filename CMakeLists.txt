@@ -113,5 +113,7 @@ install(EXPORT ${targets_export_name} DESTINATION ${EDLIB_CMAKE_DIR}
     NAMESPACE edlib::)
 
 # Install the header file and export the target
-install(TARGETS edlib EXPORT ${targets_export_name} DESTINATION lib)
-install(FILES ${PROJECT_SOURCE_DIR}/include/edlib.h DESTINATION include)
+#install(TARGETS edlib EXPORT ${targets_export_name} DESTINATION lib)
+install(TARGETS edlib EXPORT ${targets_export_name} DESTINATION ${CMAKE_INSTALL_LIBDIR})
+#install(FILES ${PROJECT_SOURCE_DIR}/include/edlib.h DESTINATION include)
+install(FILES ${PROJECT_SOURCE_DIR}/edlib/include/edlib.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
