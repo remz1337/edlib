@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
-project(edlib VERSION 1.2.5)
+project(edlib VERSION 1.2.6)
 
 option(EDLIB_ENABLE_INSTALL "Generate the install target" ON)
 
@@ -83,10 +83,9 @@ configure_file(
     @ONLY)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/edlib-1.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 
-### Additional config for VCPKG
 if(EDLIB_ENABLE_INSTALL)
 	include(CMakePackageConfigHelpers)
-	set(EDLIB_CMAKE_DIR "lib/cmake/edlib" CACHE STRING
+	set(EDLIB_CMAKE_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/edlib" CACHE STRING
 	  "Installation directory for cmake files, relative to ${CMAKE_INSTALL_PREFIX}.")
 	set(version_config "${PROJECT_BINARY_DIR}/edlib-config-version.cmake")
 	set(project_config "${PROJECT_BINARY_DIR}/edlib-config.cmake")
@@ -114,6 +113,4 @@ if(EDLIB_ENABLE_INSTALL)
 	# Create target 'install' for installing libraries.
 	install(TARGETS edlib EXPORT ${targets_export_name} DESTINATION ${CMAKE_INSTALL_LIBDIR})
 	install(FILES edlib/include/edlib.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-
 endif()
-### //
