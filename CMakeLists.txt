@@ -81,9 +81,9 @@ configure_file(
     ${CMAKE_CURRENT_SOURCE_DIR}/edlib.pc.in
     ${CMAKE_CURRENT_BINARY_DIR}/edlib-1.pc
     @ONLY)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/edlib-1.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 
 if(EDLIB_ENABLE_INSTALL)
+	install(FILES ${CMAKE_CURRENT_BINARY_DIR}/edlib-1.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 	include(CMakePackageConfigHelpers)
 	set(EDLIB_CMAKE_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/edlib" CACHE STRING
 	  "Installation directory for cmake files, relative to ${CMAKE_INSTALL_PREFIX}.")
